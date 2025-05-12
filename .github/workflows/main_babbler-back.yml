@@ -23,6 +23,17 @@ jobs:
         with:
           node-version: '22.x'
 
+      - name: Set environment variables for build
+        run: |
+          echo "APP_KEY=${{ secrets.APP_KEY }}" >> .env
+          echo "HOST=127.0.0.1" >> .env
+          echo "LOG_LEVEL=info" >> .env
+          echo "DB_HOST=${{ secrets.DB_HOST }}" >> .env
+          echo "DB_PORT=${{ secrets.DB_PORT }}" >> .env
+          echo "DB_USER=${{ secrets.DB_USER }}" >> .env
+          echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env
+          echo "DB_DATABASE=${{ secrets.DB_DATABASE }}" >> .env
+
       - name: npm install, build, and test
         run: |
           npm install
@@ -44,7 +55,7 @@ jobs:
     environment:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
-    
+
     steps:
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
@@ -53,7 +64,7 @@ jobs:
 
       - name: Unzip artifact for deployment
         run: unzip release.zip
-      
+
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
