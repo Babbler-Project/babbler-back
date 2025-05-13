@@ -3,7 +3,8 @@ const HealthCheckController = () => import('#controllers/health_check_controller
 const RootController = () => import('#controllers/root_controller')
 const ApiInfoController = () => import('#controllers/api_info_controller')
 import talkRoutes from '../routes/talk.js'
-const TypeController = () => import('#controllers/types_controller')
+const TypesController = () => import('#controllers/types_controller')
+const RoomsController = () => import('#controllers/rooms_controller')
 
 router.get('/', [RootController])
 router.get('/health', [HealthCheckController])
@@ -15,11 +16,16 @@ router
         router.get('/', [ApiInfoController])
         router
           .group(() => {
-            router.get('/types', [TypeController, 'index'])
-            router.post('/types', [TypeController, 'store'])
-            router.get('/types/:id', [TypeController, 'show'])
-            router.put('/types/:id', [TypeController, 'update'])
-            router.delete('/types/:id', [TypeController, 'destroy'])
+            router.get('/types', [TypesController, 'index'])
+            router.post('/types', [TypesController, 'store'])
+            router.get('/types/:id', [TypesController, 'show'])
+            router.put('/types/:id', [TypesController, 'update'])
+            router.delete('/types/:id', [TypesController, 'destroy'])
+            router.get('/rooms', [RoomsController, 'index'])
+            router.post('/rooms', [RoomsController, 'store'])
+            router.get('/rooms/:id', [RoomsController, 'show'])
+            router.put('/rooms/:id', [RoomsController, 'update'])
+            router.delete('/rooms/:id', [RoomsController, 'destroy'])
           })
           .prefix('organizers')
         talkRoutes()
