@@ -73,3 +73,7 @@ jobs:
           slot-name: 'Production'
           package: .
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_53DED1B1E5E54FFA956CD4D580D16FA4 }}
+
+      - name: Run AdonisJS migrations
+        run: |
+          node ace migration:run
