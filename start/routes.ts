@@ -5,9 +5,12 @@ const ApiInfoController = () => import('#controllers/api_info_controller')
 
 router.get('/', [RootController])
 router.get('/health', [HealthCheckController])
-
-const apiV1 = router.group(() => {
-  router.get('/', [ApiInfoController])
-})
-
-apiV1.prefix('/api/v1')
+router
+  .group(() => {
+    router
+      .group(() => {
+        router.get('/', [ApiInfoController])
+      })
+      .prefix('v1')
+  })
+  .prefix('api')
