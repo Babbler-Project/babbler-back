@@ -10,19 +10,6 @@ services:
       - '3333:3333'
     depends_on:
       - db
-    environment:
-      - TZ=UTC
-      - PORT=3333
-      - HOST=0.0.0.0
-      - LOG_LEVEL=info
-      - APP_KEY=${APP_KEY}
-      - NODE_ENV=development
-      - DB_CONNECTION=pg
-      - DB_HOST=db
-      - DB_PORT=5432
-      - DB_USER=adonis
-      - PG_PASSWORD=secret
-      - DB_DATABASE=babbler
     volumes:
       - ./:/app
       - /app/node_modules
@@ -31,7 +18,7 @@ services:
     image: postgres:15
     container_name: babbler-db
     ports:
-      - '5432:5432'
+      - '5433:5432'
     environment:
       - POSTGRES_USER=adonis
       - POSTGRES_PASSWORD=secret
