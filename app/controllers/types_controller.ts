@@ -1,6 +1,6 @@
 import { ErrorHandlerService } from '#services/error_handler_service'
 import TypeService from '#services/type_service'
-import { createTypeValidator } from '#validators/type_validator'
+import { createTypeValidator, updateTypeValidator } from '#validators/type_validator'
 import { inject } from '@adonisjs/core'
 import type { HttpContext } from '@adonisjs/core/http'
 
@@ -30,7 +30,7 @@ export default class TypesController {
     try {
       const data = request.all()
       const typeDTO = await createTypeValidator.validate(data)
-      const type = await this.typeService.create(typeDTO.label)
+      const type = await this.typeService.createType(typeDTO.label)
       return response.status(201).json(type)
     } catch (error) {
       this.errorHandler.handle(error, { request, response }, 'create type')
@@ -42,15 +42,19 @@ export default class TypesController {
   //  */
   // async show({ params }: HttpContext) {}
 
-  // /**
-  //  * Edit individual record
-  //  */
-  // async edit({ params }: HttpContext) {}
-
-  // /**
-  //  * Handle form submission for the edit action
-  //  */
-  // async update({ params, request }: HttpContext) {}
+  /**
+   * Handle form submission for the edit action
+   */
+  async update({ request, response, params }: HttpContext) {
+    try {
+      const data = { ...request.all(), params }
+      const typeRequestDTO = await updateTypeValidator.validate(data)
+      const type = await this.typeService.updateType(typeRequestDTO.params.id, typeRequestDTO.label)
+      return response.status(200).json(type)
+    } catch (error) {
+      this.errorHandler.handle(error, { request, response }, 'update type')
+    }
+  }
 
   // /**
   //  * Delete record

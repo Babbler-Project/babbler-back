@@ -15,6 +15,7 @@ router
           .group(() => {
             router.get('/types', [TypeController, 'index'])
             router.post('/types', [TypeController, 'store'])
+            router.put('/types/:id', [TypeController, 'update'])
           })
           .prefix('organizers')
       })
