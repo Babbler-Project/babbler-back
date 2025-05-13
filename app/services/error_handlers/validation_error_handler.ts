@@ -10,8 +10,8 @@ export class ValidationErrorHandler implements ErrorHandler {
     if (error instanceof errors.E_VALIDATION_ERROR) {
       context.response.status(422).json({
         error: 'VALIDATION_ERROR',
-        message: 'Erreur de validation des données',
-        errors: error.messages, // Les détails spécifiques des erreurs de validation
+        message: 'Data validation failed',
+        errors: error.messages,
       })
     }
   }
