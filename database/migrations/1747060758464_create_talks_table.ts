@@ -19,6 +19,14 @@ export default class extends BaseSchema {
         .inTable('statuses')
         .onDelete('CASCADE') 
 
+      table
+        .integer('level_id')
+        .unsigned()
+        .references('id')
+        .inTable('levels')
+        .onDelete('CASCADE') 
+
+
       table.timestamp('created_at')
       table.timestamp('updated_at')
     })
