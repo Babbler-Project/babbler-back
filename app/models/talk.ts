@@ -3,6 +3,7 @@ import { BaseModel, column, belongsTo } from '@adonisjs/lucid/orm'
 import type { BelongsTo } from '@adonisjs/lucid/types/relations'
 import Status from '#models/status'
 import Level from '#models/level'
+import User from '#models/user' // Assurez-vous d'importer le modèle User
 
 export default class Talk extends BaseModel {
   @column({ isPrimary: true })
@@ -15,10 +16,15 @@ export default class Talk extends BaseModel {
   declare description: string
 
   @column()
-  declare speaker: string
+  declare speaker: number
+
+  @belongsTo(() => User, {
+    foreignKey: 'speaker',  
+  })
+  declare user: BelongsTo<typeof User>
 
   @column()
-  declare duration: string
+  declare duration: DateTime
 
   @column()
   declare manageFeedback: string

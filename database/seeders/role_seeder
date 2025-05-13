@@ -1,0 +1,22 @@
+import Role from '#models/role'
+
+export default class RoleSeeder {
+  public async run() {
+    // Liste des rôles par défaut
+    const roles = [
+      { role: 'Organisateurs' },
+      { role: 'Conférencier' },
+      { role: 'Utilisateur' }
+    ]
+
+    // Vérification et insertion des rôles qui n'existent pas déjà
+    for (const role of roles) {
+      const exists = await Role.query().where('role', role.role).first()
+
+      // Si le rôle n'existe pas, on l'insère
+      if (!exists) {
+        await Role.create(role)
+      }
+    }
+  }
+}
