@@ -3,7 +3,7 @@ import { BaseModel, column, belongsTo } from '@adonisjs/lucid/orm'
 import type { BelongsTo } from '@adonisjs/lucid/types/relations'
 import Status from '#models/status'
 import Level from '#models/level'
-import User from '#models/user' // Assurez-vous d'importer le modèle User
+import User from '#models/user'
 
 export default class Talk extends BaseModel {
   @column({ isPrimary: true })

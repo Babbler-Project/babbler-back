@@ -1,122 +1,45 @@
 import type { HttpContext } from '@adonisjs/core/http'
-import Talk from '#models/talk'
-import User from '#models/user' // Import du modèle User
+import TalkService from '#services/talk_service'
 import { createTalkValidator, updateTalkValidator } from '#validators/talk_validator'
 
 export default class TalkController {
-  /**
-   * GET /talks
-   * Liste tous les talks
-   */
+  private service = new TalkService()
+
   async index({ response }: HttpContext) {
-    const talks = await Talk.query().preload('status').preload('level').preload('user')
+    const talks = await this.service.listAll()
     return response.ok(talks)
   }
 
-  /**
-   * POST /talks
-   * Crée un nouveau talk
-   */
   async store({ request, response }: HttpContext) {
     const payload = await request.validateUsing(createTalkValidator)
-
-    // Vérifier si l'utilisateur (speaker) existe
-    const speaker = await User.find(payload.speaker)
-    if (!speaker) {
-      return response.badRequest({ message: 'Speaker not found' })
-    }
-
-    // Convertir duration en DateTime si nécessaire
-    const { DateTime } = await import('luxon')
-
-    // Vérifier et convertir la durée
-    let talkDuration
     try {
-      talkDuration = DateTime.fromISO(payload.duration) // Utilisation de `fromISO` qui gère bien le format ISO 8601
-      if (!talkDuration.isValid) {
-        return response.badRequest({ message: 'Invalid duration format' })
-      }
+      const talk = await this.service.create(payload)
+      return response.created(talk)
     } catch (error) {
-      return response.badRequest({ message: 'Invalid duration format' })
+      return response.badRequest({ message: error.message })
     }
-
-    // Créer la conférence (Talk)
-    const talk = await Talk.create({
-      ...payload,
-      duration: talkDuration, // Utiliser la date validée et convertie
-    })
-    await talk.load('status')
-    await talk.load('level')
-    await talk.load('user')
-
-    return response.created(talk)
   }
 
-  /**
-   * GET /talks/:id
-   * Affiche un talk spécifique
-   */
   async show({ params, response }: HttpContext) {
-    const talk = await Talk.find(params.id)
-
-    if (!talk) {
-      return response.notFound({ message: 'Talk not found' })
-    }
-
-    await talk.load('status')
-    await talk.load('level')
-    await talk.load('user')
-
+    const talk = await this.service.findById(params.id)
+    if (!talk) return response.notFound({ message: 'Talk not found' })
     return response.ok(talk)
   }
 
-  /**
-   * PUT /talks/:id
-   * Met à jour un talk existant
-   */
   async update({ params, request, response }: HttpContext) {
-    const talk = await Talk.find(params.id)
-
-    if (!talk) {
-      return response.notFound({ message: 'Talk not found' })
-    }
-
     const payload = await request.validateUsing(updateTalkValidator)
-
-    // Vérifier si l'utilisateur (speaker) existe
-    const speaker = await User.find(payload.speaker)
-    if (!speaker) {
-      return response.badRequest({ message: 'Speaker not found' })
+    try {
+      const talk = await this.service.update(params.id, payload)
+      if (!talk) return response.notFound({ message: 'Talk not found' })
+      return response.ok(talk)
+    } catch (error) {
+      return response.badRequest({ message: error.message })
     }
-
-    // Convertir duration en DateTime si nécessaire
-    const { DateTime } = await import('luxon')
-    const mergedPayload = {
-      ...payload,
-      duration: payload.duration ? DateTime.fromJSDate(new Date(payload.duration)) : undefined,
-    }
-
-    talk.merge(mergedPayload)
-    await talk.save()
-    await talk.load('status')
-    await talk.load('level')
-    await talk.load('user')
-
-    return response.ok(talk)
   }
 
-  /**
-   * DELETE /talks/:id
-   * Supprime un talk
-   */
   async destroy({ params, response }: HttpContext) {
-    const talk = await Talk.find(params.id)
-
-    if (!talk) {
-      return response.notFound({ message: 'Talk not found' })
-    }
-
-    await talk.delete()
+    const deleted = await this.service.delete(params.id)
+    if (!deleted) return response.notFound({ message: 'Talk not found' })
     return response.noContent()
   }
 }

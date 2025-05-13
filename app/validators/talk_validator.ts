@@ -8,7 +8,7 @@ export const createTalkValidator = vine.compile(
     title: vine.string().trim().minLength(6),
     description: vine.string().trim().escape(),
     speaker: vine.number().positive(),
-    duration: vine.string().trim(), // Validation en tant que chaîne
+    duration: vine.string().trim(), 
     manageFeedback: vine.string().trim(),
     statusId: vine.number().positive(),
     levelId: vine.number().positive(),
@@ -23,7 +23,7 @@ export const updateTalkValidator = vine.compile(
     title: vine.string().trim().minLength(6),
     description: vine.string().trim().escape(),
     speaker: vine.number().positive(),
-    duration: vine.string().trim(), // Validation en tant que chaîne
+    duration: vine.string().trim(), 
     manageFeedback: vine.string().trim(),
     statusId: vine.number().positive(),
     levelId: vine.number().positive(),
