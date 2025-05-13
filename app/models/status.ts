@@ -8,7 +8,7 @@ export default class Status extends BaseModel {
   declare id: number
 
   @column()
-  declare role: string
+  declare status: string
 
   @hasMany(() => Talk)
   declare talks: HasMany<typeof Talk>

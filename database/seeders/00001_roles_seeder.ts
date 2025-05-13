@@ -8,15 +8,15 @@ export default class RoleSeeder extends BaseSeeder {
     await Role.updateOrCreateMany(uniqueKey, [
       {
         id: 1,
-        role: 'user',
+        role: 'User',
       },
       {
         id: 2,
-        role: 'organizer',
+        role: 'Organizer',
       },
       {
         id: 3,
-        role: 'speaker',
+        role: 'Speaker',
       },
     ])
   }
