@@ -11,24 +11,24 @@ tasks:
   db:migrate:
     desc: Run database migrations
     cmds:
-      - docker compose exec babbler-app node ace migration:run
+      - docker compose exec app node ace migration:run
 
   db:rollback:
     desc: Rollback the last migration
     cmds:
-      - docker compose exec babbler-app node ace migration:rollback
+      - docker compose exec app node ace migration:rollback
 
   db:migration:
     desc: Create a new migration
     cmds:
-      - docker compose exec babbler-app node ace make:migration {{.CLI_ARGS}}
+      - docker compose exec app node ace make:migration {{.CLI_ARGS}}
     requires:
       vars: [CLI_ARGS]
 
   db:seed:
     desc: Run database seeders
     cmds:
-      - docker compose exec babbler-app node ace db:seed
+      - docker compose exec app node ace db:seed
 
   # babbler-application commands
   start:
@@ -60,20 +60,20 @@ tasks:
   shell:
     desc: Open a shell in the babbler-app container
     cmds:
-      - docker compose exec babbler-app /bin/sh
+      - docker compose exec app /bin/sh
 
   # Development commands
   test:
     desc: Run tests
     cmds:
-      - docker compose exec babbler-app npm test
+      - docker compose exec app npm test
 
   lint:
     desc: Run linting
     cmds:
-      - docker compose exec babbler-app npm run lint
+      - docker compose exec app npm run lint
 
   format:
     desc: Format code
     cmds:
-      - docker compose exec babbler-app npm run format
+      - docker compose exec app npm run format
