@@ -12,20 +12,9 @@ export default class extends BaseSchema {
       table.string('duration').notNullable()
       table.string('manage_feedback').notNullable()
 
-      table
-        .integer('status_id')
-        .unsigned()
-        .references('id')
-        .inTable('statuses')
-        .onDelete('CASCADE') 
+      table.integer('status_id').unsigned().references('id').inTable('statuses').onDelete('CASCADE')
 
-      table
-        .integer('level_id')
-        .unsigned()
-        .references('id')
-        .inTable('levels')
-        .onDelete('CASCADE') 
-
+      table.integer('level_id').unsigned().references('id').inTable('levels').onDelete('CASCADE')
 
       table.timestamp('created_at')
       table.timestamp('updated_at')

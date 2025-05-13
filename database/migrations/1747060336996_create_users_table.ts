@@ -9,12 +9,7 @@ export default class extends BaseSchema {
       table.string('email').notNullable().unique()
       table.string('password').notNullable()
 
-      table
-        .integer('role_id')
-        .unsigned()
-        .references('id')
-        .inTable('roles')
-        .onDelete('CASCADE') 
+      table.integer('role_id').unsigned().references('id').inTable('roles').onDelete('CASCADE')
 
       table.timestamp('created_at')
       table.timestamp('updated_at')
