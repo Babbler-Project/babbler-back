@@ -32,6 +32,7 @@
     "#database/*": "./database/*.js",
     "#start/*": "./start/*.js",
     "#tests/*": "./tests/*.js",
+    "#factories*": "./tests/factories/*.js",
     "#config/*": "./config/*.js"
   },
   "devDependencies": {

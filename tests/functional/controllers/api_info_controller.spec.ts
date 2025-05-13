@@ -1,7 +1,7 @@
 import { test } from '@japa/runner'
 
-test.group('Api info', () => {
-  test('should return health response', async ({ assert, client }) => {
+test.group('Api info controller', () => {
+  test('it should return health response', async ({ assert, client }) => {
     const response = await client.get('/api/v1')
     response.assertStatus(200)
 
