@@ -14,3 +14,11 @@ export const updateTypeValidator = vine.compile(
     }),
   })
 )
+
+export const deleteTypeValidator = vine.compile(
+  vine.object({
+    params: vine.object({
+      id: vine.number().positive(),
+    }),
+  })
+)

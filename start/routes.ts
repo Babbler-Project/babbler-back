@@ -16,6 +16,7 @@ router
             router.get('/types', [TypeController, 'index'])
             router.post('/types', [TypeController, 'store'])
             router.put('/types/:id', [TypeController, 'update'])
+            router.delete('/types/:id', [TypeController, 'destroy'])
           })
           .prefix('organizers')
       })

@@ -16,4 +16,10 @@ export default class TypeService {
     type.label = label
     return await type.save()
   }
+
+  async deleteType(id: number): Promise<Type> {
+    const type = await Type.findOrFail(id)
+    await type.delete()
+    return type
+  }
 }
