@@ -7,15 +7,15 @@ export default class StatusSeeder extends BaseSeeder {
     await Status.updateOrCreateMany(uniqueKey, [
       {
         id: 1,
-        role: 'Pending',
+        status: 'Pending',
       },
       {
         id: 2,
-        role: 'Planed',
+        status: 'Planed',
       },
       {
         id: 3,
-        role: 'Refused',
+        status: 'Refused',
       },
     ])
   }
