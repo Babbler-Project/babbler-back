@@ -16,17 +16,6 @@ jobs:
         with:
           node-version: 22
 
-      - name: Set environment variables for build
-        run: |
-          echo "APP_KEY=${{ secrets.APP_KEY }}" >> .env
-          echo "HOST=127.0.0.1" >> .env
-          echo "LOG_LEVEL=info" >> .env
-          echo "DB_HOST=${{ secrets.DB_HOST }}" >> .env
-          echo "DB_PORT=${{ secrets.DB_PORT }}" >> .env
-          echo "DB_USER=${{ secrets.DB_USER }}" >> .env
-          echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env
-          echo "DB_DATABASE=${{ secrets.DB_DATABASE }}" >> .env
-
       - name: Install dependencies
         run: npm install
 
