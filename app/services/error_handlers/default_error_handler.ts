@@ -1,4 +1,4 @@
-import type { ErrorHandler } from '#types/errors'
+import type { ErrorHandler } from '#types/errors_types'
 import { HttpContext } from '@adonisjs/core/http'
 
 export class DefaultErrorHandler implements ErrorHandler {

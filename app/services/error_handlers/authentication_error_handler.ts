@@ -1,4 +1,4 @@
-import type { ErrorHandler, ErrorContext } from '#types/errors'
+import type { ErrorHandler, ErrorContext } from '#types/errors_types'
 
 export class AuthenticationErrorHandler implements ErrorHandler {
   canHandle(error: any): boolean {

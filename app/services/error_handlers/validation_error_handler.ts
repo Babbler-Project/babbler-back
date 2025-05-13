@@ -1,4 +1,4 @@
-import type { ErrorHandler, ErrorContext } from '#types/errors'
+import type { ErrorHandler, ErrorContext } from '#types/errors_types'
 import { errors } from '@vinejs/vine'
 
 export class ValidationErrorHandler implements ErrorHandler {

@@ -1,4 +1,4 @@
-import type { ErrorHandler, ErrorContext } from '#types/errors'
+import type { ErrorHandler, ErrorContext } from '#types/errors_types'
 import { DefaultErrorHandler } from './error_handlers/default_error_handler.js'
 import { AuthenticationErrorHandler } from './error_handlers/authentication_error_handler.js'
 import { ValidationErrorHandler } from './error_handlers/validation_error_handler.js'
