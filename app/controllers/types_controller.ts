@@ -3,6 +3,7 @@ import TypeService from '#services/type_service'
 import {
   createTypeValidator,
   deleteTypeValidator,
+  getOneTypeValidator,
   updateTypeValidator,
 } from '#validators/type_validator'
 import { inject } from '@adonisjs/core'
@@ -15,9 +16,7 @@ export default class TypesController {
   constructor(private typeService: TypeService) {
     this.errorHandler = new ErrorHandlerService()
   }
-  /**
-   * Display a list of resource
-   */
+
   async index({ request, response }: HttpContext) {
     try {
       const types = await this.typeService.getAll()
@@ -27,9 +26,6 @@ export default class TypesController {
     }
   }
 
-  /**
-   * Handle form submission for the create action
-   */
   async store({ response, request }: HttpContext) {
     try {
       const data = request.all()
@@ -41,14 +37,17 @@ export default class TypesController {
     }
   }
 
-  // /**
-  //  * Show individual record
-  //  */
-  // async show({ params }: HttpContext) {}
+  async show({ response, request, params }: HttpContext) {
+    try {
+      const data = { params }
+      const typeRequestDTO = await getOneTypeValidator.validate(data)
+      const type = await this.typeService.getTypeById(typeRequestDTO.params.id)
+      return type
+    } catch (error) {
+      this.errorHandler.handle(error, { response, request }, 'fetch one type data')
+    }
+  }
 
-  /**
-   * Handle form submission for the edit action
-   */
   async update({ request, response, params }: HttpContext) {
     try {
       const data = { ...request.all(), params }
@@ -60,9 +59,6 @@ export default class TypesController {
     }
   }
 
-  /**
-   * Delete record
-   */
   async destroy({ request, response, params }: HttpContext) {
     try {
       const data = { params }

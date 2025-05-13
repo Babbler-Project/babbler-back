@@ -22,3 +22,11 @@ export const deleteTypeValidator = vine.compile(
     }),
   })
 )
+
+export const getOneTypeValidator = vine.compile(
+  vine.object({
+    params: vine.object({
+      id: vine.number().positive(),
+    }),
+  })
+)

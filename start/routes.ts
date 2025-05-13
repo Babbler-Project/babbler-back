@@ -15,6 +15,7 @@ router
           .group(() => {
             router.get('/types', [TypeController, 'index'])
             router.post('/types', [TypeController, 'store'])
+            router.get('/types/:id', [TypeController, 'show'])
             router.put('/types/:id', [TypeController, 'update'])
             router.delete('/types/:id', [TypeController, 'destroy'])
           })

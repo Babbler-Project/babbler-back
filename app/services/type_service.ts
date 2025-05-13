@@ -4,6 +4,9 @@ export default class TypeService {
   async getAll(): Promise<Type[]> {
     return await Type.all()
   }
+  async getTypeById(id: number): Promise<Type> {
+    return await Type.findOrFail(id)
+  }
 
   async createType(label: string): Promise<Type> {
     const type = new Type()
