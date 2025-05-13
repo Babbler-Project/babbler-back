@@ -38,4 +38,6 @@ export default await Env.create(new URL('../', import.meta.url), {
   ADMIN_PASSWORD: Env.schema.string(),
   USER_EMAIL: Env.schema.string(),
   USER_PASSWORD: Env.schema.string(),
+  SPEAKER_EMAIL: Env.schema.string(),
+  SPEAKER_PASSWORD: Env.schema.string(),
 })

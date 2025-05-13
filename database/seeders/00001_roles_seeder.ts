@@ -16,7 +16,7 @@ export default class RoleSeeder extends BaseSeeder {
       },
       {
         id: 3,
-        role: 'referent',
+        role: 'speaker',
       },
     ])
   }
