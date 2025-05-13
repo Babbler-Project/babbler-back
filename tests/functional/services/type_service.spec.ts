@@ -4,7 +4,7 @@ import { createType, createManyTypes } from '#factories/type_factory'
 import Type from '#models/type'
 import testUtils from '@adonisjs/core/services/test_utils'
 
-test.group('Type Service', (group) => {
+test.group('Type service', (group) => {
   const service = new TypeService()
 
   group.each.setup(() => testUtils.db().withGlobalTransaction())
