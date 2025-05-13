@@ -11,8 +11,6 @@ export default class TalkSeeder extends BaseSeeder {
     const statuses = await Status.all()
     const levels = await Level.all()
 
-    console.log(users)
-
     const talks = [
       {
         id: 1,
