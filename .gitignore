@@ -1,6 +1,9 @@
+# Envrionment
 node_modules
 .env
 
+# Build
 **/build
 
-**.DS_Store
+# Mac OS
+*.DS_Store
