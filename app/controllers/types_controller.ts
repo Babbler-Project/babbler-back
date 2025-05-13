@@ -1,5 +1,6 @@
 import { ErrorHandlerService } from '#services/error_handler_service'
 import TypeService from '#services/type_service'
+import { createTypeValidator } from '#validators/type_validator'
 import { inject } from '@adonisjs/core'
 import type { HttpContext } from '@adonisjs/core/http'
 
@@ -22,15 +23,19 @@ export default class TypesController {
     }
   }
 
-  // /**
-  //  * Display form to create a new record
-  //  */
-  // async create({}: HttpContext) {}
-
-  // /**
-  //  * Handle form submission for the create action
-  //  */
-  // async store({ request }: HttpContext) {}
+  /**
+   * Handle form submission for the create action
+   */
+  async store({ response, request }: HttpContext) {
+    try {
+      const data = request.all()
+      const typeDTO = await createTypeValidator.validate(data)
+      const type = await this.typeService.create(typeDTO.label)
+      return response.status(201).json(type)
+    } catch (error) {
+      this.errorHandler.handle(error, { request, response }, 'create type')
+    }
+  }
 
   // /**
   //  * Show individual record

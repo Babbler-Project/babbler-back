@@ -8,7 +8,7 @@ export default class Type extends BaseModel {
   declare id: number
 
   @column()
-  declare type: string
+  declare label: string
 
   @hasMany(() => TalkType)
   declare talkTypes: HasMany<typeof TalkType>
