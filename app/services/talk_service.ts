@@ -1,5 +1,6 @@
 import Talk from '#models/talk'
 import User from '#models/user'
+import { TalkPayload } from '../types/talk_types.js'
 import { DateTime } from 'luxon'
 
 export default class TalkService {
@@ -7,7 +8,7 @@ export default class TalkService {
     return Talk.query().preload('status').preload('level').preload('user')
   }
 
-  public async create(payload: any) {
+  public async create(payload: TalkPayload) {
     const speaker = await User.find(payload.speaker)
     if (!speaker) {
       throw new Error('Speaker not found')
@@ -40,7 +41,7 @@ export default class TalkService {
     return talk
   }
 
-  public async update(id: number, payload: any) {
+  public async update(id: number, payload: TalkPayload) {
     const talk = await Talk.find(id)
     if (!talk) return null
 
@@ -49,9 +50,7 @@ export default class TalkService {
       throw new Error('Speaker not found')
     }
 
-    const duration = payload.duration
-      ? DateTime.fromISO(payload.duration)
-      : undefined
+    const duration = payload.duration ? DateTime.fromISO(payload.duration) : undefined
 
     if (duration && !duration.isValid) {
       throw new Error('Invalid duration format')

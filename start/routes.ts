@@ -12,7 +12,7 @@ router
     router
       .group(() => {
         router.get('/', [ApiInfoController])
-        talkRoutes() 
+        talkRoutes()
       })
       .prefix('v1')
   })
