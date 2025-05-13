@@ -14,10 +14,10 @@ export default class TalkTypeSeeder extends BaseSeeder {
       for (const talk of talks) {
         // Associer chaque talk à chaque type (vous pouvez personnaliser la logique ici)
         await TalkType.updateOrCreate(
-          { talkId: talk.id, typeId: type.id },  // Assurez-vous que la combinaison talkId/typeId est unique
+          { talkId: talk.id, typeId: type.id }, // Assurez-vous que la combinaison talkId/typeId est unique
           {
             talkId: talk.id,
-            typeId: type.id
+            typeId: type.id,
           }
         )
       }

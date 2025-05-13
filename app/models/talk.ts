@@ -19,7 +19,7 @@ export default class Talk extends BaseModel {
   declare speaker: number
 
   @belongsTo(() => User, {
-    foreignKey: 'speaker',  
+    foreignKey: 'speaker',
   })
   declare user: BelongsTo<typeof User>
 

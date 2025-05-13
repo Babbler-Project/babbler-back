@@ -1,7 +1,7 @@
 import type { HttpContext } from '@adonisjs/core/http'
 import Talk from '#models/talk'
 import User from '#models/user' // Import du modèle User
-import { createTalkValidator, updateTalkValidator } from '#validators/talkValidator'
+import { createTalkValidator, updateTalkValidator } from '#validators/talk_validator'
 
 export default class TalkController {
   /**
@@ -9,7 +9,7 @@ export default class TalkController {
    * Liste tous les talks
    */
   async index({ response }: HttpContext) {
-    const talks = await Talk.query().preload('status').preload('level').preload('user') 
+    const talks = await Talk.query().preload('status').preload('level').preload('user')
     return response.ok(talks)
   }
 
@@ -30,9 +30,9 @@ export default class TalkController {
     const { DateTime } = await import('luxon')
 
     // Vérifier et convertir la durée
-    let talkDuration;
+    let talkDuration
     try {
-      talkDuration = DateTime.fromISO(payload.duration); // Utilisation de `fromISO` qui gère bien le format ISO 8601
+      talkDuration = DateTime.fromISO(payload.duration) // Utilisation de `fromISO` qui gère bien le format ISO 8601
       if (!talkDuration.isValid) {
         return response.badRequest({ message: 'Invalid duration format' })
       }
@@ -47,11 +47,10 @@ export default class TalkController {
     })
     await talk.load('status')
     await talk.load('level')
-    await talk.load('user') 
+    await talk.load('user')
 
     return response.created(talk)
   }
-
 
   /**
    * GET /talks/:id
@@ -66,7 +65,7 @@ export default class TalkController {
 
     await talk.load('status')
     await talk.load('level')
-    await talk.load('user') 
+    await talk.load('user')
 
     return response.ok(talk)
   }
@@ -101,7 +100,7 @@ export default class TalkController {
     await talk.save()
     await talk.load('status')
     await talk.load('level')
-    await talk.load('user') 
+    await talk.load('user')
 
     return response.ok(talk)
   }
