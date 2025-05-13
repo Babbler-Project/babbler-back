@@ -20,7 +20,7 @@ export default class TypesController {
   async index({ request, response }: HttpContext) {
     try {
       const types = await this.typeService.getAll()
-      return response.status(200).json(types)
+      return response.ok(types)
     } catch (error) {
       this.errorHandler.handle(error, { request, response }, 'fetch types data')
     }
@@ -31,7 +31,7 @@ export default class TypesController {
       const data = request.all()
       const typeRequestDTO = await createTypeValidator.validate(data)
       const type = await this.typeService.createType(typeRequestDTO.label)
-      return response.status(201).json(type)
+      return response.created(type)
     } catch (error) {
       this.errorHandler.handle(error, { request, response }, 'create type')
     }
@@ -42,7 +42,7 @@ export default class TypesController {
       const data = { params }
       const typeRequestDTO = await getOneTypeValidator.validate(data)
       const type = await this.typeService.getTypeById(typeRequestDTO.params.id)
-      return type
+      return response.ok(type)
     } catch (error) {
       this.errorHandler.handle(error, { response, request }, 'fetch one type data')
     }
@@ -53,7 +53,7 @@ export default class TypesController {
       const data = { ...request.all(), params }
       const typeRequestDTO = await updateTypeValidator.validate(data)
       const type = await this.typeService.updateType(typeRequestDTO.params.id, typeRequestDTO.label)
-      return response.status(200).json(type)
+      return response.ok(type)
     } catch (error) {
       this.errorHandler.handle(error, { request, response }, 'update type')
     }
@@ -64,7 +64,7 @@ export default class TypesController {
       const data = { params }
       const typeRequestDTO = await deleteTypeValidator.validate(data)
       const type = await this.typeService.deleteType(typeRequestDTO.params.id)
-      return response.status(200).json(type)
+      return response.ok(type)
     } catch (error) {
       this.errorHandler.handle(error, { request, response }, 'delete type')
     }
