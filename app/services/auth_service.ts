@@ -25,5 +25,4 @@ export default class AuthService {
     await user.load('role')
     return user
   }
-
 }

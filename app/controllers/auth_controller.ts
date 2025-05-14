@@ -22,6 +22,4 @@ export default class AuthController {
     const service = new AuthService(auth.use('jwt'))
     return await service.me()
   }
-
-  
 }

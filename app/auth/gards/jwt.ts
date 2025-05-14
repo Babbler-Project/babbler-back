@@ -110,7 +110,6 @@ export class JwtGuard<UserProvider extends JwtUserProviderContract<unknown>>
     return this.user
   }
 
-
   /**
    * Authentification silencieuse
    */
