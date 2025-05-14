@@ -1,5 +1,9 @@
 import Talk from '#models/talk'
-import { CreateTalkRequestDTO, UpdateTalkRequestDTO } from '#types/talk_types'
+import {
+  CreateTalkRequestDTO,
+  RefusedTalkRequestDTO,
+  UpdateTalkRequestDTO,
+} from '#types/talk_types'
 
 export default class TalkMapper {
   static fromCreateDTO(dto: CreateTalkRequestDTO): Talk {
@@ -16,6 +20,13 @@ export default class TalkMapper {
     talk.title = dto.body.title
     talk.description = dto.body.description
     talk.duration = dto.body.duration
+    return talk
+  }
+
+  static fromRefusedDTO(dto: RefusedTalkRequestDTO): Talk {
+    const talk = new Talk()
+    talk.id = dto.params.id
+    talk.messageFeedback = dto.body.message
     return talk
   }
 }

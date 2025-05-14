@@ -4,6 +4,7 @@ import type { BelongsTo } from '@adonisjs/lucid/types/relations'
 import Status from '#models/status'
 import Level from '#models/level'
 import User from '#models/user'
+import Type from './type.js'
 
 export default class Talk extends BaseModel {
   @column({ isPrimary: true })
@@ -27,7 +28,7 @@ export default class Talk extends BaseModel {
   declare duration: number
 
   @column()
-  declare manageFeedback: string
+  declare messageFeedback: string
 
   @column({ serializeAs: null })
   declare statusId: number
@@ -40,6 +41,12 @@ export default class Talk extends BaseModel {
 
   @belongsTo(() => Level)
   declare level: BelongsTo<typeof Level>
+
+  @column({ serializeAs: null })
+  declare typeId: number
+
+  @belongsTo(() => Type)
+  declare type: BelongsTo<typeof Type>
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime

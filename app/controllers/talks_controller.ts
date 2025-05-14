@@ -5,11 +5,16 @@ import {
   createTalkValidator,
   deleteTalkValidator,
   getOneTalkValidator,
+  refusedTalkValidator,
   updateTalkValidator,
 } from '#validators/talk_validator'
 import { inject } from '@adonisjs/core'
 import { ErrorHandlerService } from '#services/error_handler_service'
-import { CreateTalkRequestDTO, UpdateTalkRequestDTO } from '#types/talk_types'
+import {
+  CreateTalkRequestDTO,
+  RefusedTalkRequestDTO,
+  UpdateTalkRequestDTO,
+} from '#types/talk_types'
 
 @inject()
 export default class TalkController {
@@ -28,6 +33,15 @@ export default class TalkController {
     }
   }
 
+  async pending({ request, response }: HttpContext) {
+    try {
+      const talks = await this.talkService.getAllPendingTalks()
+      return response.ok(talks)
+    } catch (error) {
+      this.errorHandler.handle(error, { request, response }, 'fetch pending talks data')
+    }
+  }
+
   async store({ request, response }: HttpContext) {
     try {
       const data = request.all()
@@ -37,7 +51,8 @@ export default class TalkController {
       const talk = await this.talkService.createTalk(
         talkData,
         requestDTO.speakerId,
-        requestDTO.levelId
+        requestDTO.levelId,
+        requestDTO.typeId
       )
       return response.created(talk)
     } catch (error) {
@@ -61,7 +76,23 @@ export default class TalkController {
       const data = { body: request.all(), params }
       const requestDTO: UpdateTalkRequestDTO = await updateTalkValidator.validate(data)
       const talkData = TalkMapper.fromUpdateDTO(requestDTO)
-      const talk = await this.talkService.updateTalk(talkData, requestDTO.body.levelId)
+      const talk = await this.talkService.updateTalk(
+        talkData,
+        requestDTO.body.levelId,
+        requestDTO.body.typeId
+      )
+      return response.ok(talk)
+    } catch (error) {
+      this.errorHandler.handle(error, { request, response }, 'update talk')
+    }
+  }
+
+  async refused({ params, request, response }: HttpContext) {
+    try {
+      const data = { body: request.all(), params }
+      const requestDTO: RefusedTalkRequestDTO = await refusedTalkValidator.validate(data)
+      const talkData = TalkMapper.fromRefusedDTO(requestDTO)
+      const talk = await this.talkService.refusedTalk(talkData)
       return response.ok(talk)
     } catch (error) {
       this.errorHandler.handle(error, { request, response }, 'update talk')

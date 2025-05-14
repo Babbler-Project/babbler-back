@@ -14,9 +14,9 @@ router
     router
       .group(() => {
         router.get('/', [ApiInfoController])
+        router.get('/types', [TypesController, 'index'])
         router
           .group(() => {
-            router.get('/types', [TypesController, 'index'])
             router.post('/types', [TypesController, 'store'])
             router.get('/types/:id', [TypesController, 'show'])
             router.put('/types/:id', [TypesController, 'update'])
@@ -26,13 +26,12 @@ router
             router.get('/rooms/:id', [RoomsController, 'show'])
             router.put('/rooms/:id', [RoomsController, 'update'])
             router.delete('/rooms/:id', [RoomsController, 'destroy'])
-            router.get('/talks', [TalksController, 'index'])
-            router.post('/talks', [TalksController, 'store'])
+            router.get('/talks', [TalksController, 'pending'])
             router.get('/talks/:id', [TalksController, 'show'])
-            router.put('/talks/:id', [TalksController, 'update'])
+            router.put('/talks/:id/refused', [TalksController, 'refused'])
             router.delete('/talks/:id', [TalksController, 'destroy'])
           })
-          .prefix('organizers')
+          .prefix('organizer')
         router
           .group(() => {
             router.get('/talks', [TalksController, 'index'])
@@ -41,7 +40,7 @@ router
             router.put('/talks/:id', [TalksController, 'update'])
             router.delete('/talks/:id', [TalksController, 'destroy'])
           })
-          .prefix('speakers')
+          .prefix('speaker')
       })
       .prefix('v1')
   })

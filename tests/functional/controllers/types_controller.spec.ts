@@ -31,7 +31,7 @@ test.group('Type controller', (group) => {
   })
 
   test('it should return mocked types', async ({ client, assert }) => {
-    const response = await client.get('/api/v1/organizers/types')
+    const response = await client.get('/api/v1/types')
 
     response.assertStatus(200)
     const body = response.body()
@@ -43,7 +43,7 @@ test.group('Type controller', (group) => {
     assert.deepInclude(body, { id: 2, label: 'Mocked B' })
   })
   test('it should return one mocked type', async ({ client, assert }) => {
-    const response = await client.get('/api/v1/organizers/types/5')
+    const response = await client.get('/api/v1/organizer/types/5')
 
     response.assertStatus(200)
     const body = response.body()
@@ -52,7 +52,7 @@ test.group('Type controller', (group) => {
   })
 
   test('it should create a new type', async ({ client, assert }) => {
-    const response = await client.post('/api/v1/organizers/types').json({
+    const response = await client.post('/api/v1/organizer/types').json({
       label: 'New Mocked Type',
     })
 
@@ -63,7 +63,7 @@ test.group('Type controller', (group) => {
   })
 
   test('it should update a type', async ({ client, assert }) => {
-    const response = await client.put('/api/v1/organizers/types/10').json({
+    const response = await client.put('/api/v1/organizer/types/10').json({
       label: 'Updated Label',
     })
 
@@ -74,7 +74,7 @@ test.group('Type controller', (group) => {
   })
 
   test('it should delete a type', async ({ client, assert }) => {
-    const response = await client.delete('/api/v1/organizers/types/20')
+    const response = await client.delete('/api/v1/organizer/types/20')
 
     response.assertStatus(200)
     const body = response.body()
