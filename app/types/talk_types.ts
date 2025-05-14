@@ -4,6 +4,7 @@ export interface CreateTalkRequestDTO {
   speakerId: number
   duration: number
   levelId: number
+  typeId: number
 }
 
 export interface UpdateTalkRequestDTO {
@@ -12,6 +13,7 @@ export interface UpdateTalkRequestDTO {
     description: string
     duration: number
     levelId: number
+    typeId: number
   }
   params: {
     id: number

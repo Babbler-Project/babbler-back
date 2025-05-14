@@ -32,7 +32,7 @@ test.group('Room controller', (group) => {
   })
 
   test('it should return mocked rooms', async ({ client, assert }) => {
-    const response = await client.get('/api/v1/organizers/rooms')
+    const response = await client.get('/api/v1/organizer/rooms')
 
     response.assertStatus(200)
     const body = response.body()
@@ -45,7 +45,7 @@ test.group('Room controller', (group) => {
   })
 
   test('it should return one mocked room', async ({ client, assert }) => {
-    const response = await client.get('/api/v1/organizers/rooms/5')
+    const response = await client.get('/api/v1/organizer/rooms/5')
 
     response.assertStatus(200)
     const body = response.body()
@@ -54,7 +54,7 @@ test.group('Room controller', (group) => {
   })
 
   test('it should create a new room', async ({ client, assert }) => {
-    const response = await client.post('/api/v1/organizers/rooms').json({
+    const response = await client.post('/api/v1/organizer/rooms').json({
       name: 'New Room',
       capacity: 20,
     })
@@ -70,7 +70,7 @@ test.group('Room controller', (group) => {
   })
 
   test('it should update a room', async ({ client, assert }) => {
-    const response = await client.put('/api/v1/organizers/rooms/10').json({
+    const response = await client.put('/api/v1/organizer/rooms/10').json({
       name: 'Updated Room',
       capacity: 30,
     })
@@ -86,7 +86,7 @@ test.group('Room controller', (group) => {
   })
 
   test('it should delete a room', async ({ client, assert }) => {
-    const response = await client.delete('/api/v1/organizers/rooms/20')
+    const response = await client.delete('/api/v1/organizer/rooms/20')
 
     response.assertStatus(200)
     const body = response.body()

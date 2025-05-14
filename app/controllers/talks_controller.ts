@@ -51,7 +51,8 @@ export default class TalkController {
       const talk = await this.talkService.createTalk(
         talkData,
         requestDTO.speakerId,
-        requestDTO.levelId
+        requestDTO.levelId,
+        requestDTO.typeId
       )
       return response.created(talk)
     } catch (error) {
@@ -75,7 +76,11 @@ export default class TalkController {
       const data = { body: request.all(), params }
       const requestDTO: UpdateTalkRequestDTO = await updateTalkValidator.validate(data)
       const talkData = TalkMapper.fromUpdateDTO(requestDTO)
-      const talk = await this.talkService.updateTalk(talkData, requestDTO.body.levelId)
+      const talk = await this.talkService.updateTalk(
+        talkData,
+        requestDTO.body.levelId,
+        requestDTO.body.typeId
+      )
       return response.ok(talk)
     } catch (error) {
       this.errorHandler.handle(error, { request, response }, 'update talk')

@@ -7,6 +7,7 @@ export const createTalkValidator = vine.compile(
     speakerId: vine.number().positive(),
     duration: vine.number().positive().max(180),
     levelId: vine.number().positive(),
+    typeId: vine.number().positive(),
   })
 )
 
@@ -17,6 +18,7 @@ export const updateTalkValidator = vine.compile(
       description: vine.string().trim().escape(),
       duration: vine.number().positive().max(180),
       levelId: vine.number().positive(),
+      typeId: vine.number().positive(),
     }),
     params: vine.object({
       id: vine.number().positive(),
