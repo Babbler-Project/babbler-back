@@ -15,27 +15,27 @@ export default class Talk extends BaseModel {
   @column()
   declare description: string
 
-  @column()
-  declare speaker: number
+  @column({ serializeAs: null })
+  declare speakerId: number
 
   @belongsTo(() => User, {
-    foreignKey: 'speaker',
+    foreignKey: 'speakerId',
   })
-  declare user: BelongsTo<typeof User>
+  declare speaker: BelongsTo<typeof User>
 
   @column()
-  declare duration: DateTime
+  declare duration: number
 
   @column()
   declare manageFeedback: string
 
-  @column()
+  @column({ serializeAs: null })
   declare statusId: number
 
   @belongsTo(() => Status)
   declare status: BelongsTo<typeof Status>
 
-  @column()
+  @column({ serializeAs: null })
   declare levelId: number
 
   @belongsTo(() => Level)

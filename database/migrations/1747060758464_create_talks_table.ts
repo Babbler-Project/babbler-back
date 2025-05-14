@@ -8,9 +8,9 @@ export default class extends BaseSchema {
       table.increments('id')
       table.string('title').notNullable()
       table.string('description').notNullable()
-      table.integer('speaker').unsigned().references('id').inTable('users').onDelete('CASCADE')
-      table.timestamp('duration').notNullable()
-      table.string('manage_feedback').notNullable()
+      table.integer('speaker_id').unsigned().references('id').inTable('users').onDelete('CASCADE')
+      table.integer('duration').notNullable()
+      table.string('manage_feedback').nullable()
 
       table.integer('status_id').unsigned().references('id').inTable('statuses').onDelete('CASCADE')
 

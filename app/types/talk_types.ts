@@ -1,9 +1,19 @@
-export interface TalkPayload {
+export interface CreateTalkRequestDTO {
   title: string
   description: string
-  speaker: number
-  duration: string
-  statusId: number
+  speakerId: number
+  duration: number
   levelId: number
-  manageFeedback?: string
+}
+
+export interface UpdateTalkRequestDTO {
+  body: {
+    title: string
+    description: string
+    duration: number
+    levelId: number
+  }
+  params: {
+    id: number
+  }
 }

@@ -2,13 +2,13 @@ import Level from '#models/level'
 
 export default class LevelSeeder {
   public async run() {
-    const levels = ['Débutant', 'Intermédiaire', 'Avancé']
+    const levels = ['Beginer', 'Advanced', 'Expert']
 
     for (const levelName of levels) {
-      const existingLevel = await Level.query().where('level', levelName).first()
+      const existingLevel = await Level.query().where('label', levelName).first()
 
       if (!existingLevel) {
-        await Level.create({ level: levelName })
+        await Level.create({ label: levelName })
       }
     }
   }
