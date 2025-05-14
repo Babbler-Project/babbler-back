@@ -28,7 +28,7 @@ export default class TalkService {
     const speaker = await User.findOrFail(speakerId)
     const level = await Level.findOrFail(levelId)
     const type = await Type.findOrFail(typeId)
-    const status = await Status.findOrFail(1)
+    const status = await Status.findOrFail(TalkStatus.PENDING)
 
     await talk.related('speaker').associate(speaker)
     await talk.related('level').associate(level)

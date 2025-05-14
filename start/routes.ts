@@ -5,6 +5,7 @@ const ApiInfoController = () => import('#controllers/api_info_controller')
 const TalksController = () => import('#controllers/talks_controller')
 const TypesController = () => import('#controllers/types_controller')
 const RoomsController = () => import('#controllers/rooms_controller')
+const PlanningsController = () => import('#controllers/plannings_controller')
 
 router.get('/', [RootController])
 router.get('/health', [HealthCheckController])
@@ -15,6 +16,7 @@ router
       .group(() => {
         router.get('/', [ApiInfoController])
         router.get('/types', [TypesController, 'index'])
+        router.get('/plannings', [PlanningsController, 'index'])
         router
           .group(() => {
             router.post('/types', [TypesController, 'store'])
@@ -29,7 +31,7 @@ router
             router.get('/talks', [TalksController, 'pending'])
             router.get('/talks/:id', [TalksController, 'show'])
             router.put('/talks/:id/refused', [TalksController, 'refused'])
-            router.delete('/talks/:id', [TalksController, 'destroy'])
+            router.post('/plannings', [PlanningsController, 'store'])
           })
           .prefix('organizer')
         router
