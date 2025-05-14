@@ -8,14 +8,14 @@ export default class Status extends BaseModel {
   declare id: number
 
   @column()
-  declare status: string
+  declare label: string
 
   @hasMany(() => Talk)
   declare talks: HasMany<typeof Talk>
 
-  @column.dateTime({ autoCreate: true })
+  @column.dateTime({ autoCreate: true, serializeAs: null })
   declare createdAt: DateTime
 
-  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  @column.dateTime({ autoCreate: true, autoUpdate: true, serializeAs: null })
   declare updatedAt: DateTime
 }

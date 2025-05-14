@@ -2,7 +2,7 @@ import router from '@adonisjs/core/services/router'
 const HealthCheckController = () => import('#controllers/health_check_controller')
 const RootController = () => import('#controllers/root_controller')
 const ApiInfoController = () => import('#controllers/api_info_controller')
-import talkRoutes from '../routes/talk.js'
+const TalksController = () => import('#controllers/talks_controller')
 const TypesController = () => import('#controllers/types_controller')
 const RoomsController = () => import('#controllers/rooms_controller')
 
@@ -26,9 +26,22 @@ router
             router.get('/rooms/:id', [RoomsController, 'show'])
             router.put('/rooms/:id', [RoomsController, 'update'])
             router.delete('/rooms/:id', [RoomsController, 'destroy'])
+            router.get('/talks', [TalksController, 'index'])
+            router.post('/talks', [TalksController, 'store'])
+            router.get('/talks/:id', [TalksController, 'show'])
+            router.put('/talks/:id', [TalksController, 'update'])
+            router.delete('/talks/:id', [TalksController, 'destroy'])
           })
           .prefix('organizers')
-        talkRoutes()
+        router
+          .group(() => {
+            router.get('/talks', [TalksController, 'index'])
+            router.post('/talks', [TalksController, 'store'])
+            router.get('/talks/:id', [TalksController, 'show'])
+            router.put('/talks/:id', [TalksController, 'update'])
+            router.delete('/talks/:id', [TalksController, 'destroy'])
+          })
+          .prefix('speakers')
       })
       .prefix('v1')
   })

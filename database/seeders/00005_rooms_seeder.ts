@@ -3,7 +3,7 @@ import { BaseSeeder } from '@adonisjs/lucid/seeders'
 
 export default class RoomSeeder extends BaseSeeder {
   async run() {
-    const uniqueKey = 'id'
+    const uniqueKey = 'name'
     await Room.updateOrCreateMany(uniqueKey, [
       {
         name: 'Salle Turing',
