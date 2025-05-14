@@ -9,3 +9,9 @@ export interface ErrorHandler {
   canHandle(error: unknown): boolean
   handle(error: Error, context: ErrorContext): void
 }
+
+export interface DatabaseError extends Error {
+  code?: string
+  status?: number
+  message: string
+}
