@@ -3,7 +3,10 @@
   "compilerOptions": {
     "rootDir": "./",
     "outDir": "./build",
-    "typeRoots": ["./node_modules/@types", "./app/type"],
+    "typeRoots": [
+      "./node_modules/@types",
+      "./app/type"
+    ],
     "paths": {
       "#*": ["./app/*"],
       "@/*": ["./app/*"]
@@ -21,6 +24,11 @@
     "resolveJsonModule": true,
     "noEmit": false
   },
-  "include": ["**/*"],
-  "exclude": ["node_modules", "build"]
+  "include": [
+    "**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "build"
+  ]
 }
