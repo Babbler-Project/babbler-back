@@ -1,3 +1,4 @@
+import { TalkStatus } from '#enums/talks_enums'
 import Level from '#models/level'
 import Status from '#models/status'
 import Talk from '#models/talk'
@@ -6,6 +7,14 @@ import User from '#models/user'
 export default class TalkService {
   public async getAll(): Promise<Talk[]> {
     return Talk.query().preload('status').preload('level').preload('speaker')
+  }
+
+  public async getAllPendingTalks(): Promise<Talk[]> {
+    return Talk.query()
+      .where('status_id', TalkStatus.PENDING)
+      .preload('status')
+      .preload('level')
+      .preload('speaker')
   }
 
   public async createTalk(talk: Talk, speakerId: number, levelId: number): Promise<Talk> {
@@ -36,6 +45,21 @@ export default class TalkService {
     talkToUpdate.title = talk.title
     talkToUpdate.description = talk.description
     talkToUpdate.duration = talk.duration
+
+    await talkToUpdate.save()
+    await talkToUpdate.load('status')
+    await talkToUpdate.load('level')
+    await talkToUpdate.load('speaker')
+    return talkToUpdate
+  }
+
+  public async refusedTalk(talk: Talk): Promise<Talk> {
+    const talkToUpdate = await Talk.findOrFail(talk.id)
+    const status = await Status.findOrFail(TalkStatus.REFUSED)
+
+    await talkToUpdate.related('status').associate(status)
+
+    talkToUpdate.messageFeedback = talk.messageFeedback
 
     await talkToUpdate.save()
     await talkToUpdate.load('status')

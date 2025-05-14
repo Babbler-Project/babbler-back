@@ -17,3 +17,11 @@ export interface UpdateTalkRequestDTO {
     id: number
   }
 }
+export interface RefusedTalkRequestDTO {
+  body: {
+    message: string
+  }
+  params: {
+    id: number
+  }
+}

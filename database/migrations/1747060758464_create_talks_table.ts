@@ -10,7 +10,7 @@ export default class extends BaseSchema {
       table.string('description').notNullable()
       table.integer('speaker_id').unsigned().references('id').inTable('users').onDelete('CASCADE')
       table.integer('duration').notNullable()
-      table.string('manage_feedback').nullable()
+      table.string('message_feedback').nullable()
 
       table.integer('status_id').unsigned().references('id').inTable('statuses').onDelete('CASCADE')
 

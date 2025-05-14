@@ -27,7 +27,7 @@ export default class Talk extends BaseModel {
   declare duration: number
 
   @column()
-  declare manageFeedback: string
+  declare messageFeedback: string
 
   @column({ serializeAs: null })
   declare statusId: number
