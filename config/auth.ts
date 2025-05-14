@@ -5,19 +5,19 @@ import User from '#models/user'
 import { symbols } from '@adonisjs/auth'
 
 const jwtConfig = {
-  secret: env.get('APP_KEY'), 
+  secret: env.get('APP_KEY'),
 }
 
 const userProvider = {
   [symbols.PROVIDER_REAL_USER]: User,
 
-  async createUserForGuard(user: User) { 
+  async createUserForGuard(user: User) {
     return {
       getId() {
-        return user.id 
+        return user.id
       },
       getOriginal() {
-        return user 
+        return user
       },
     }
   },
@@ -25,7 +25,7 @@ const userProvider = {
   async findById(id: string) {
     const user = await User.find(id)
     if (!user) {
-      return null 
+      return null
     }
     return {
       getId() {
