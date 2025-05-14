@@ -4,51 +4,40 @@ import Type from '#models/type'
 
 export default class TypeSeeder extends BaseSeeder {
   async run() {
-    const uniqueKey = 'id'
+    const uniqueKey = 'label'
     await Type.updateOrCreateMany(uniqueKey, [
       {
-        id: 1,
-        type: 'Frontend',
+        label: 'Frontend',
       },
       {
-        id: 2,
-        type: 'Backend',
+        label: 'Backend',
       },
       {
-        id: 3,
-        type: 'DevOps',
+        label: 'DevOps',
       },
       {
-        id: 4,
-        type: 'Mobile',
+        label: 'Mobile',
       },
       {
-        id: 5,
-        type: 'UX/UI',
+        label: 'UX/UI',
       },
       {
-        id: 6,
-        type: 'Data Science',
+        label: 'Data Science',
       },
       {
-        id: 7,
-        type: 'Machine Learning',
+        label: 'Machine Learning',
       },
       {
-        id: 8,
-        type: 'Security',
+        label: 'Security',
       },
       {
-        id: 9,
-        type: 'Architecture',
+        label: 'Architecture',
       },
       {
-        id: 10,
-        type: 'Languages',
+        label: 'Languages',
       },
       {
-        id: 11,
-        type: 'Other',
+        label: 'Other',
       },
     ])
   }
