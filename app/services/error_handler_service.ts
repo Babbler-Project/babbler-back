@@ -16,7 +16,6 @@ export class ErrorHandlerService {
     ]
 
     const handler = this.handlers.find((h) => h.canHandle(error))
-    console.log('handler', handler)
     if (handler) {
       handler.handle(error as Error, context)
     } else {
