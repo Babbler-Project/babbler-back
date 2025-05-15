@@ -28,7 +28,6 @@ export default class TalkController {
   async index({ request, response, auth }: HttpContext) {
     try {
       const speaker = auth.getUserOrFail() as User
-      console.log('speaker', speaker.id)
       const talks = await this.talkService.getAllMyTalk(speaker)
       return response.ok(talks)
     } catch (error) {
@@ -76,13 +75,15 @@ export default class TalkController {
     }
   }
 
-  async update({ params, request, response }: HttpContext) {
+  async update({ params, request, response, auth }: HttpContext) {
     try {
+      const speaker = auth.getUserOrFail() as User
       const data = { body: request.all(), params }
       const requestDTO: UpdateTalkRequestDTO = await updateTalkValidator.validate(data)
       const talkData = TalkMapper.fromUpdateDTO(requestDTO)
       const talk = await this.talkService.updateTalk(
         talkData,
+        speaker.id,
         requestDTO.body.levelId,
         requestDTO.body.typeId
       )

@@ -1,10 +1,11 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column, belongsTo } from '@adonisjs/lucid/orm'
-import type { BelongsTo } from '@adonisjs/lucid/types/relations'
+import { BaseModel, column, belongsTo, hasOne } from '@adonisjs/lucid/orm'
+import type { BelongsTo, HasOne } from '@adonisjs/lucid/types/relations'
 import Status from '#models/status'
 import Level from '#models/level'
 import User from '#models/user'
 import Type from './type.js'
+import Planning from './planning.js'
 
 export default class Talk extends BaseModel {
   @column({ isPrimary: true })
@@ -47,6 +48,9 @@ export default class Talk extends BaseModel {
 
   @belongsTo(() => Type)
   declare type: BelongsTo<typeof Type>
+
+  @hasOne(() => Planning)
+  declare planning: HasOne<typeof Planning>
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime

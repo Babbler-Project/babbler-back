@@ -3,6 +3,7 @@ import { DefaultErrorHandler } from './error_handlers/default_error_handler.js'
 import { AuthenticationErrorHandler } from './error_handlers/authentication_error_handler.js'
 import { ValidationErrorHandler } from './error_handlers/validation_error_handler.js'
 import { DatabaseErrorHandler } from './error_handlers/database_error_handler.js'
+import { AuthorizationErrorHandler } from './error_handlers/authorization_error_handler.js'
 
 export class ErrorHandlerService {
   private handlers: ErrorHandler[] = []
@@ -11,6 +12,7 @@ export class ErrorHandlerService {
     this.handlers = [
       new AuthenticationErrorHandler(),
       new ValidationErrorHandler(),
+      new AuthorizationErrorHandler(),
       new DatabaseErrorHandler(),
       new DefaultErrorHandler(operation),
     ]

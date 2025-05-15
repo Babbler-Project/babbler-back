@@ -4,6 +4,7 @@ import Status from '#models/status'
 import Talk from '#models/talk'
 import Type from '#models/type'
 import User from '#models/user'
+import { AuthorizationException } from '#exceptions/authorization_exeption'
 
 export default class TalkService {
   public async getAllMyTalk(speaker: User): Promise<Talk[]> {
@@ -12,6 +13,12 @@ export default class TalkService {
       .preload('status')
       .preload('level')
       .preload('type')
+      .preload('planning', (planningQuery) => {
+        planningQuery.select(['id', 'startTime', 'endTime', 'roomId'])
+        planningQuery.preload('room', (roomQuery) => {
+          roomQuery.select(['id', 'name'])
+        })
+      })
   }
 
   public async getAllPendingTalks(): Promise<Talk[]> {
@@ -21,6 +28,7 @@ export default class TalkService {
       .preload('level')
       .preload('type')
       .preload('speaker')
+      .preload('planning')
   }
 
   public async createTalk(
@@ -43,15 +51,28 @@ export default class TalkService {
 
   public async findById(id: number) {
     const talk = await Talk.findOrFail(id)
-    await talk.load('speaker')
     await talk.load('level')
     await talk.load('type')
     await talk.load('status')
     return talk
   }
 
-  public async updateTalk(talk: Talk, levelId: number, typeId: number): Promise<Talk> {
-    const talkToUpdate = await Talk.findOrFail(talk.id)
+  public async updateTalk(
+    talk: Talk,
+    speakedId: number,
+    levelId: number,
+    typeId: number
+  ): Promise<Talk> {
+    const talkToUpdate = await Talk.query().where('id', talk.id).preload('status').firstOrFail()
+
+    if (talkToUpdate.speakerId !== speakedId) {
+      throw new AuthorizationException()
+    }
+
+    if (talkToUpdate.status.id !== TalkStatus.PENDING) {
+      throw new AuthorizationException('You can not update a talk that is not pending')
+    }
+
     const level = await Level.findOrFail(levelId)
     const type = await Type.findOrFail(typeId)
 
@@ -65,7 +86,6 @@ export default class TalkService {
     await talkToUpdate.save()
     await talkToUpdate.load('status')
     await talkToUpdate.load('level')
-    await talkToUpdate.load('speaker')
     await talkToUpdate.load('type')
     return talkToUpdate
   }
