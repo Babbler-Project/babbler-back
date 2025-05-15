@@ -1,5 +1,5 @@
 import User from '#models/user'
-import { CreateUserRequestDTO, UpdateUserRequestDTO} from '#types/user_types'
+import { CreateUserRequestDTO, UpdateUserRequestDTO } from '#types/user_types'
 
 export default class UserMapper {
   static fromCreateDTO(dto: CreateUserRequestDTO): User {
@@ -7,7 +7,7 @@ export default class UserMapper {
     user.email = dto.email
     user.password = dto.password
     user.roleId = dto.roleId
-    user.firstName = dto.first_name 
+    user.firstName = dto.first_name
     user.lastName = dto.last_name
     return user
   }

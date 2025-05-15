@@ -5,7 +5,6 @@ import { createUserValidator } from '#validators/user_validator'
 import AuthService from '#services/auth_service'
 import { ErrorHandlerService } from '#services/error_handler_service'
 
-
 export default class AuthController {
   private readonly errorHandler: ErrorHandlerService
 
@@ -34,7 +33,6 @@ export default class AuthController {
       this.errorHandler.handle(error, { request, response }, 'register')
     }
   }
-
 
   async me({ auth, request, response }: HttpContext) {
     try {

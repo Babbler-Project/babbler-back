@@ -41,8 +41,8 @@ export default class User extends compose(BaseModel, AuthFinder) {
   declare updatedAt: DateTime
 
   @computed()
-  get fullName(): string|null{
-    if(!this.firstName || !this.lastName) {
+  get fullName(): string | null {
+    if (!this.firstName || !this.lastName) {
       return null
     }
     return `${this.firstName} ${this.lastName}`
