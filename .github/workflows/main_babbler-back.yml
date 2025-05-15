@@ -103,8 +103,8 @@ jobs:
 
       - name: Run AdonisJS migrations
         run: |
-          node ace migration:run
+          node ace migration:run --force
 
       - name: Run AdonisJS seeds
         run: |
-          node ace db:seed
+          node ace db:seed --force
