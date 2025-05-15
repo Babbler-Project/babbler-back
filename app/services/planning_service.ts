@@ -9,15 +9,10 @@ export default class PlanningService {
       .where('start_time', '>=', planning.startTime.toString())
       .andWhere('end_time', '<=', planning.endTime.toString())
       .preload('room')
-      .preload('talk', (talkQuery) => {
-        talkQuery
-          .preload('speaker')
-          .preload('level')
-          .preload('type')
-          .preload('status')
-      })
+      .preload('talk', (talkQuery) =>
+        talkQuery.preload('speaker').preload('level').preload('type').preload('status')
+      )
   }
-
 
   public async createPlanning(
     planning: Planning,
