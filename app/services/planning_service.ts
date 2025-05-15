@@ -39,7 +39,7 @@ export default class PlanningService {
     const end = planning.endTime
     // Verify planning is between 9:00 and 19:00
     if (isOutOfOpeningHours(start, end)) {
-      throw new Error('Can not planne outside 9:00 to 19:00')
+      throw new Error('Can not plan outside 9:00 to 19:00')
     }
 
     if (isLunchOverlap(start, end)) {
@@ -47,7 +47,7 @@ export default class PlanningService {
     }
 
     if (isMoreThanMaxDuration(start, end)) {
-      throw new Error('Can not durate more than 3 hours')
+      throw new Error('Cannot exceed a duration of 3 hours')
     }
 
     // Verify overlap
