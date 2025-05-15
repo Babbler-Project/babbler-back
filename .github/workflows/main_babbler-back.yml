@@ -33,6 +33,12 @@ jobs:
           echo "DB_USER=${{ secrets.DB_USER }}" >> .env
           echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env
           echo "DB_DATABASE=${{ secrets.DB_DATABASE }}" >> .env
+          echo "ADMIN_EMAIL=${{ secrets.ADMIN_EMAIL }}" >> .env
+          echo "ADMIN_PASSWORD=${{ secrets.ADMIN_PASSWORD }}" >> .env
+          echo "USER_EMAIL=${{ secrets.USER_EMAIL }}" >> .env
+          echo "USER_PASSWORD=${{ secrets.USER_PASSWORD }}" >> .env
+          echo "SPEAKER_EMAIL=${{ secrets.SPEAKER_EMAIL }}" >> .env
+          echo "SPEAKER_PASSWORD=${{ secrets.SPEAKER_PASSWORD }}" >> .env
 
       - name: npm install, build, and test
         run: |
@@ -73,3 +79,11 @@ jobs:
           slot-name: 'Production'
           package: .
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_53DED1B1E5E54FFA956CD4D580D16FA4 }}
+
+      - name: Run AdonisJS migrations
+        run: |
+          node ace migration:run
+
+      - name: Run AdonisJS seeds
+        run: |
+          node ace db:seed

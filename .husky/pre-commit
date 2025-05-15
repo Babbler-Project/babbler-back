@@ -1,0 +1,12 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+echo "🧐 Start linter..."
+npm run lint
+
+if [ $? -ne 0 ]; then
+  echo "❌ Linter violation detected. Commit canceled."
+  exit 1
+fi
+
+echo "✅ Linter passed. Commit allowed."

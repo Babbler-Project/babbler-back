@@ -1,0 +1,492 @@
+{
+	"info": {
+		"_postman_id": "a5515cd4-e1cd-42c6-8b82-8bff2b79f5b6",
+		"name": "Babbler",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20131952",
+		"_collection_link": "https://orange-station-817152.postman.co/workspace/Pierre-Barret~23624f98-2e28-4b33-8752-e7a90b062ac7/collection/20131952-a5515cd4-e1cd-42c6-8b82-8bff2b79f5b6?action=share&source=collection_link&creator=20131952"
+	},
+	"item": [
+		{
+			"name": "Types",
+			"item": [
+				{
+					"name": "getAll",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain-url}}{{base-url}}{{organizer-prefix}}/types",
+							"host": [
+								"{{domain-url}}{{base-url}}{{organizer-prefix}}"
+							],
+							"path": [
+								"types"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getType",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain-url}}{{base-url}}{{organizer-prefix}}/types/:id",
+							"host": [
+								"{{domain-url}}{{base-url}}{{organizer-prefix}}"
+							],
+							"path": [
+								"types",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "14"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createType",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"label\": \"Testtypes\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain-url}}{{base-url}}{{organizer-prefix}}/types",
+							"host": [
+								"{{domain-url}}{{base-url}}{{organizer-prefix}}"
+							],
+							"path": [
+								"types"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateType",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"label\": \"Megatype\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain-url}}{{base-url}}{{organizer-prefix}}/types/:id",
+							"host": [
+								"{{domain-url}}{{base-url}}{{organizer-prefix}}"
+							],
+							"path": [
+								"types",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "11"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteType",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{domain-url}}{{base-url}}{{organizer-prefix}}/types/:id",
+							"host": [
+								"{{domain-url}}{{base-url}}{{organizer-prefix}}"
+							],
+							"path": [
+								"types",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "13"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Rooms",
+			"item": [
+				{
+					"name": "getAll",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain-url}}{{base-url}}{{organizer-prefix}}/rooms",
+							"host": [
+								"{{domain-url}}{{base-url}}{{organizer-prefix}}"
+							],
+							"path": [
+								"rooms"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getRoom",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain-url}}{{base-url}}{{organizer-prefix}}/rooms/:id",
+							"host": [
+								"{{domain-url}}{{base-url}}{{organizer-prefix}}"
+							],
+							"path": [
+								"rooms",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createRoom",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Lorna Straus\",\n    \"capacity\": 130\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain-url}}{{base-url}}{{organizer-prefix}}/rooms",
+							"host": [
+								"{{domain-url}}{{base-url}}{{organizer-prefix}}"
+							],
+							"path": [
+								"rooms"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateRoom",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Lorna Straus\",\n    \"capacity\": 130\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain-url}}{{base-url}}{{organizer-prefix}}/rooms/:id",
+							"host": [
+								"{{domain-url}}{{base-url}}{{organizer-prefix}}"
+							],
+							"path": [
+								"rooms",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteRoom",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{domain-url}}{{base-url}}{{organizer-prefix}}/rooms/:id",
+							"host": [
+								"{{domain-url}}{{base-url}}{{organizer-prefix}}"
+							],
+							"path": [
+								"rooms",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Talks",
+			"item": [
+				{
+					"name": "getAll",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain-url}}{{base-url}}{{speaker-prefix}}/talks",
+							"host": [
+								"{{domain-url}}{{base-url}}{{speaker-prefix}}"
+							],
+							"path": [
+								"talks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getTalk",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain-url}}{{base-url}}{{speaker-prefix}}/talks/:id",
+							"host": [
+								"{{domain-url}}{{base-url}}{{speaker-prefix}}"
+							],
+							"path": [
+								"talks",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createTalk",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Titre test 2\",\n  \"description\": \"Description test 2\",\n  \"speakerId\": 1,\n  \"duration\": 120,\n  \"levelId\": 3\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain-url}}{{base-url}}{{speaker-prefix}}/talks",
+							"host": [
+								"{{domain-url}}{{base-url}}{{speaker-prefix}}"
+							],
+							"path": [
+								"talks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateTalk",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Titre test 2\",\n  \"description\": \"Description test 3\",\n  \"duration\": 150,\n  \"levelId\": 3 \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain-url}}{{base-url}}{{speaker-prefix}}/talks/:id",
+							"host": [
+								"{{domain-url}}{{base-url}}{{speaker-prefix}}"
+							],
+							"path": [
+								"talks",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteTalk",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{domain-url}}{{base-url}}{{speaker-prefix}}/talks/:id",
+							"host": [
+								"{{domain-url}}{{base-url}}{{speaker-prefix}}"
+							],
+							"path": [
+								"talks",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "domain-url",
+			"value": "http://localhost:3333",
+			"type": "string"
+		},
+		{
+			"key": "base-url",
+			"value": "/api/v1",
+			"type": "string"
+		},
+		{
+			"key": "organizer-prefix",
+			"value": "/organizers",
+			"type": "string"
+		},
+		{
+			"key": "user-prefix",
+			"value": "/users",
+			"type": "string"
+		},
+		{
+			"key": "speaker-prefix",
+			"value": "/speakers",
+			"type": "string"
+		}
+	]
+}
