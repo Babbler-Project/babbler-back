@@ -15,8 +15,8 @@ export default class AuthService {
     return this.jwt.generate(user)
   }
 
-  async register(email: string, password: string, roleId: number) {
-    const user = await User.create({ email, password, roleId })
+  async register(userData: User) {
+    const user = await User.create(userData)
     return this.jwt.generate(user)
   }
 

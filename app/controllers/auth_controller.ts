@@ -1,4 +1,7 @@
-import { HttpContext } from '@adonisjs/core/http'
+import type { HttpContext } from '@adonisjs/core/http'
+import UserMapper from '#mappers/user_mapper'
+import { CreateUserRequestDTO } from '#types/user_types'
+import { createUserValidator } from '#validators/user_validator'
 import AuthService from '#services/auth_service'
 import { ErrorHandlerService } from '#services/error_handler_service'
 
@@ -21,9 +24,11 @@ export default class AuthController {
 
   async register({ request, auth, response }: HttpContext) {
     try {
-      const { email, password, roleId } = request.only(['email', 'password', 'roleId'])
+      const data = request.all()
+      const requestDTO: CreateUserRequestDTO = await createUserValidator.validate(data)
+      const user = UserMapper.fromCreateDTO(requestDTO)
       const service = new AuthService(auth.use('jwt'))
-      return await service.register(email, password, roleId)
+      return await service.register(user)
     } catch (error) {
       this.errorHandler.handle(error, { request, response }, 'register')
     }

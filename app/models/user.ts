@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon'
 import hash from '@adonisjs/core/services/hash'
 import { compose } from '@adonisjs/core/helpers'
-import { BaseModel, column, belongsTo } from '@adonisjs/lucid/orm'
+import { BaseModel, column, belongsTo, computed } from '@adonisjs/lucid/orm'
 import { withAuthFinder } from '@adonisjs/auth/mixins/lucid'
 import { DbAccessTokensProvider } from '@adonisjs/auth/access_tokens'
 import type { BelongsTo } from '@adonisjs/lucid/types/relations'
@@ -28,11 +28,25 @@ export default class User extends compose(BaseModel, AuthFinder) {
   @belongsTo(() => Role)
   declare role: BelongsTo<typeof Role>
 
+  @column({ serializeAs: null })
+  declare firstName?: string
+
+  @column({ serializeAs: null })
+  declare lastName?: string
+
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime
+
+  @computed()
+  get fullName(): string | null {
+    if (!this.firstName || !this.lastName) {
+      return null
+    }
+    return `${this.firstName} ${this.lastName}`
+  }
 
   static accessTokens = DbAccessTokensProvider.forModel(User)
 }
