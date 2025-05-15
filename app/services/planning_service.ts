@@ -43,7 +43,7 @@ export default class PlanningService {
     }
 
     if (isLunchOverlap(start, end)) {
-      throw new Error('Can not overlap launch pause 12:00 to 13:00')
+      throw new Error('Cannot overlap lunch break (12:00 to 13:00)')
     }
 
     if (isMoreThanMaxDuration(start, end)) {
