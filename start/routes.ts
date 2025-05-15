@@ -5,6 +5,7 @@ const ApiInfoController = () => import('#controllers/api_info_controller')
 const TalksController = () => import('#controllers/talks_controller')
 const TypesController = () => import('#controllers/types_controller')
 const RoomsController = () => import('#controllers/rooms_controller')
+const PlanningsController = () => import('#controllers/plannings_controller')
 const AuthController = () => import('#controllers/auth_controller')
 import RoleMiddleware from '#middleware/role_middleware'
 
@@ -20,6 +21,7 @@ router
       .group(() => {
         router.get('/', [ApiInfoController])
         router.get('/types', [TypesController, 'index'])
+        router.get('/plannings', [PlanningsController, 'index'])
         router
           .group(() => {
             router.post('/register', [AuthController, 'register'])
@@ -41,7 +43,7 @@ router
             router.get('/talks', [TalksController, 'pending'])
             router.get('/talks/:id', [TalksController, 'show'])
             router.put('/talks/:id/refused', [TalksController, 'refused'])
-            router.delete('/talks/:id', [TalksController, 'destroy'])
+            router.post('/plannings', [PlanningsController, 'store'])
           })
           .prefix('organizer')
           .use(async (ctx, next) => {
