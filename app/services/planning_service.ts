@@ -1,11 +1,7 @@
 import Planning from '#models/planning'
 import Room from '#models/room'
 import Talk from '#models/talk'
-import {
-  isLunchOverlap,
-  isMoreThanMaxDuration,
-  isOutOfOpeningHours,
-} from '#utils/planning_utils.js'
+import { isLunchOverlap, isMoreThanMaxDuration, isOutOfOpeningHours } from '#utils/planning_utils'
 
 export default class PlanningService {
   public async getPlanningDuringPeriod(planning: Planning): Promise<Planning[]> {
@@ -31,7 +27,13 @@ export default class PlanningService {
 
     await this.verifyPlanningOverlap(planning)
 
-    return await planning.save()
+    await planning.save()
+
+    await planning.load((loader) => {
+      loader.preload('room').preload('talk')
+    })
+
+    return planning
   }
 
   protected async verifyPlanningOverlap(planning: Planning) {
