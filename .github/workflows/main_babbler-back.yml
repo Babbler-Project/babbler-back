@@ -25,9 +25,11 @@ jobs:
 
       - name: Set environment variables for build
         run: |
+          echo "NODE_ENV=${{ secrets.NODE_ENV }}" >> .env
+          echo "PORT=${{ secrets.PORT }}" >> .env
           echo "APP_KEY=${{ secrets.APP_KEY }}" >> .env
-          echo "HOST=127.0.0.1" >> .env
-          echo "LOG_LEVEL=info" >> .env
+          echo "HOST=${{ secrets.HOST }}" >> .env
+          echo "LOG_LEVEL=${{ secrets.LOG_LEVEL }}" >> .env
           echo "DB_HOST=${{ secrets.DB_HOST }}" >> .env
           echo "DB_PORT=${{ secrets.DB_PORT }}" >> .env
           echo "DB_USER=${{ secrets.DB_USER }}" >> .env
@@ -79,6 +81,25 @@ jobs:
           slot-name: 'Production'
           package: .
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_53DED1B1E5E54FFA956CD4D580D16FA4 }}
+
+      - name: Set environment variables for deployment
+        run: |
+          echo "NODE_ENV=${{ secrets.NODE_ENV }}" >> .env
+          echo "PORT=${{ secrets.PORT }}" >> .env
+          echo "APP_KEY=${{ secrets.APP_KEY }}" >> .env
+          echo "HOST=${{ secrets.HOST }}" >> .env
+          echo "LOG_LEVEL=${{ secrets.LOG_LEVEL }}" >> .env
+          echo "DB_HOST=${{ secrets.DB_HOST }}" >> .env
+          echo "DB_PORT=${{ secrets.DB_PORT }}" >> .env
+          echo "DB_USER=${{ secrets.DB_USER }}" >> .env
+          echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env
+          echo "DB_DATABASE=${{ secrets.DB_DATABASE }}" >> .env
+          echo "ADMIN_EMAIL=${{ secrets.ADMIN_EMAIL }}" >> .env
+          echo "ADMIN_PASSWORD=${{ secrets.ADMIN_PASSWORD }}" >> .env
+          echo "USER_EMAIL=${{ secrets.USER_EMAIL }}" >> .env
+          echo "USER_PASSWORD=${{ secrets.USER_PASSWORD }}" >> .env
+          echo "SPEAKER_EMAIL=${{ secrets.SPEAKER_EMAIL }}" >> .env
+          echo "SPEAKER_PASSWORD=${{ secrets.SPEAKER_PASSWORD }}" >> .env
 
       - name: Run AdonisJS migrations
         run: |
