@@ -15,6 +15,7 @@ import {
   RefusedTalkRequestDTO,
   UpdateTalkRequestDTO,
 } from '#types/talk_types'
+import User from '#models/user'
 
 @inject()
 export default class TalkController {
@@ -24,9 +25,11 @@ export default class TalkController {
     this.errorHandler = new ErrorHandlerService()
   }
 
-  async index({ request, response }: HttpContext) {
+  async index({ request, response, auth }: HttpContext) {
     try {
-      const talks = await this.talkService.getAll()
+      const speaker = auth.getUserOrFail() as User
+      console.log('speaker', speaker.id)
+      const talks = await this.talkService.getAllMyTalk(speaker)
       return response.ok(talks)
     } catch (error) {
       this.errorHandler.handle(error, { request, response }, 'fetch talk data')
@@ -42,15 +45,17 @@ export default class TalkController {
     }
   }
 
-  async store({ request, response }: HttpContext) {
+  async store({ request, response, auth }: HttpContext) {
     try {
+      const speaker = auth.getUserOrFail() as User
+
       const data = request.all()
       const requestDTO: CreateTalkRequestDTO = await createTalkValidator.validate(data)
       const talkData = TalkMapper.fromCreateDTO(requestDTO)
 
       const talk = await this.talkService.createTalk(
         talkData,
-        requestDTO.speakerId,
+        speaker.id,
         requestDTO.levelId,
         requestDTO.typeId
       )

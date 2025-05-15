@@ -6,8 +6,12 @@ import Type from '#models/type'
 import User from '#models/user'
 
 export default class TalkService {
-  public async getAll(): Promise<Talk[]> {
-    return Talk.query().preload('status').preload('level').preload('type').preload('speaker')
+  public async getAllMyTalk(speaker: User): Promise<Talk[]> {
+    return Talk.query()
+      .where('speaker_id', speaker.id)
+      .preload('status')
+      .preload('level')
+      .preload('type')
   }
 
   public async getAllPendingTalks(): Promise<Talk[]> {

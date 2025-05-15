@@ -4,7 +4,6 @@ export const createTalkValidator = vine.compile(
   vine.object({
     title: vine.string().trim().minLength(6),
     description: vine.string().trim().escape(),
-    speakerId: vine.number().positive(),
     duration: vine.number().positive().max(180),
     levelId: vine.number().positive(),
     typeId: vine.number().positive(),
