@@ -3,9 +3,13 @@ import RoomService from '#services/room_service'
 import { test } from '@japa/runner'
 import Room from '#models/room'
 import { RoomDTO } from '#types/room_types'
+import testUtils from '@adonisjs/core/services/test_utils'
+import { createOrganizer } from '#tests/factories/user_factory'
+import User from '#models/user'
 
 test.group('Room controller', (group) => {
-  group.setup(() => {
+  let organizer: User
+  group.setup(async () => {
     // Crée un mock du service
     const mockRoomService = {
       getAll: async () =>
@@ -29,10 +33,13 @@ test.group('Room controller', (group) => {
 
     // Remplace le vrai service par le mock dans le container
     app.container.bind(RoomService, () => mockRoomService)
+    // Crée un utilisateur organisateur
+    organizer = await createOrganizer()
   })
+  group.teardown(() => testUtils.db().truncate())
 
   test('it should return mocked rooms', async ({ client, assert }) => {
-    const response = await client.get('/api/v1/organizer/rooms')
+    const response = await client.get('/api/v1/organizer/rooms').loginAs(organizer)
 
     response.assertStatus(200)
     const body = response.body()
@@ -45,7 +52,7 @@ test.group('Room controller', (group) => {
   })
 
   test('it should return one mocked room', async ({ client, assert }) => {
-    const response = await client.get('/api/v1/organizer/rooms/5')
+    const response = await client.get('/api/v1/organizer/rooms/5').loginAs(organizer)
 
     response.assertStatus(200)
     const body = response.body()
@@ -54,10 +61,13 @@ test.group('Room controller', (group) => {
   })
 
   test('it should create a new room', async ({ client, assert }) => {
-    const response = await client.post('/api/v1/organizer/rooms').json({
-      name: 'New Room',
-      capacity: 20,
-    })
+    const response = await client
+      .post('/api/v1/organizer/rooms')
+      .json({
+        name: 'New Room',
+        capacity: 20,
+      })
+      .loginAs(organizer)
 
     response.assertStatus(201)
     const body = response.body()
@@ -70,10 +80,13 @@ test.group('Room controller', (group) => {
   })
 
   test('it should update a room', async ({ client, assert }) => {
-    const response = await client.put('/api/v1/organizer/rooms/10').json({
-      name: 'Updated Room',
-      capacity: 30,
-    })
+    const response = await client
+      .put('/api/v1/organizer/rooms/10')
+      .json({
+        name: 'Updated Room',
+        capacity: 30,
+      })
+      .loginAs(organizer)
 
     response.assertStatus(200)
     const body = response.body()
@@ -86,7 +99,7 @@ test.group('Room controller', (group) => {
   })
 
   test('it should delete a room', async ({ client, assert }) => {
-    const response = await client.delete('/api/v1/organizer/rooms/20')
+    const response = await client.delete('/api/v1/organizer/rooms/20').loginAs(organizer)
 
     response.assertStatus(200)
     const body = response.body()

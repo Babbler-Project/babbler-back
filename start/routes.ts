@@ -9,6 +9,7 @@ const AuthController = () => import('#controllers/auth_controller')
 import RoleMiddleware from '#middleware/role_middleware'
 
 import { RoleId } from '#enums/roles_enums'
+import { middleware } from './kernel.js'
 
 router.get('/', [RootController])
 router.get('/health', [HealthCheckController])
@@ -23,10 +24,7 @@ router
           .group(() => {
             router.post('/register', [AuthController, 'register'])
             router.post('/login', [AuthController, 'login'])
-            router.get('/me', [AuthController, 'me']).use(async ({ auth }, next) => {
-              await auth.authenticate()
-              await next()
-            })
+            router.get('/me', [AuthController, 'me']).use(middleware.auth())
           })
           .prefix('auth')
         router
