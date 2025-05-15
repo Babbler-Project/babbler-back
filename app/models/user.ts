@@ -28,6 +28,12 @@ export default class User extends compose(BaseModel, AuthFinder) {
   @belongsTo(() => Role)
   declare role: BelongsTo<typeof Role>
 
+  @column()
+  declare firstName: string
+
+  @column()
+  declare lastName: string
+
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
 
