@@ -6,10 +6,12 @@ import { isLunchOverlap, isMoreThanMaxDuration, isOutOfOpeningHours } from '#uti
 export default class PlanningService {
   public async getPlanningDuringPeriod(planning: Planning): Promise<Planning[]> {
     return Planning.query()
-      .where('start_time', '>=', planning.startTime.toString()) // Luxon -> SQL format
+      .where('start_time', '>=', planning.startTime.toString())
       .andWhere('end_time', '<=', planning.endTime.toString())
-      .preload('talk')
       .preload('room')
+      .preload('talk', (talkQuery) =>
+        talkQuery.preload('speaker').preload('level').preload('type').preload('status')
+      )
   }
 
   public async createPlanning(
