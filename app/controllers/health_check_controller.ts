@@ -20,7 +20,7 @@ export default class HealthCheckController {
       return response.status(503).json({
         status: 'unhealthy',
         database: 'disconnected',
-        error: error.message,
+        error: error instanceof Error ? error.message : 'Unknown error',
         timestamp: new Date().toISOString(),
       })
     }
