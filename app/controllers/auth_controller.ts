@@ -4,6 +4,7 @@ import { CreateUserRequestDTO } from '#types/user_types'
 import { createUserValidator } from '#validators/user_validator'
 import AuthService from '#services/auth_service'
 import { ErrorHandlerService } from '#services/error_handler_service'
+import { AuthorizationException } from '#exceptions/authorization_exeption'
 
 export default class AuthController {
   private readonly errorHandler: ErrorHandlerService
@@ -26,6 +27,11 @@ export default class AuthController {
     try {
       const data = request.all()
       const requestDTO: CreateUserRequestDTO = await createUserValidator.validate(data)
+
+      if (requestDTO.roleId === 2) {
+        throw new AuthorizationException('You are not allowed to register as an Organizer')
+      }
+
       const user = UserMapper.fromCreateDTO(requestDTO)
       const service = new AuthService(auth.use('jwt'))
       return await service.register(user)
