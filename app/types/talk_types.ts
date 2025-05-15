@@ -1,7 +1,6 @@
 export interface CreateTalkRequestDTO {
   title: string
   description: string
-  speakerId: number
   duration: number
   levelId: number
   typeId: number

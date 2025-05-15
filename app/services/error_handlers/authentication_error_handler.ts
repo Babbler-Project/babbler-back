@@ -9,7 +9,7 @@ export class AuthenticationErrorHandler implements ErrorHandler {
   handle(_error: Error, context: ErrorContext): void {
     context.response.unauthorized({
       error: 'UNAUTHORIZED',
-      message: 'Authentication requise',
+      message: 'Authentication required',
     })
   }
 }

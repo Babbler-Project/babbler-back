@@ -16,9 +16,9 @@ export default class Room extends BaseModel {
   @hasMany(() => Planning)
   declare plannings: HasMany<typeof Planning>
 
-  @column.dateTime({ autoCreate: true })
+  @column.dateTime({ autoCreate: true, serializeAs: null })
   declare createdAt: DateTime
 
-  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  @column.dateTime({ autoCreate: true, autoUpdate: true, serializeAs: null })
   declare updatedAt: DateTime
 }

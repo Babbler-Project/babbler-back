@@ -16,7 +16,6 @@ export default class PlaningController {
 
   async index({ request, response }: HttpContext) {
     try {
-      console.log('Fetching planning data')
       const data = { queries: request.qs() }
       const planningRequestDTO: GetPlanningDuringPeriodRequestDTO =
         await getPlanningDuringPeriod.validate(data)

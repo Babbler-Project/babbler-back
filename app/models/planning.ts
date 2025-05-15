@@ -9,13 +9,13 @@ export default class Planning extends BaseModel {
   @column({ isPrimary: true })
   declare id: number
 
-  @column()
+  @column({ serializeAs: null })
   declare talkId: number
 
   @belongsTo(() => Talk)
   declare talk: BelongsTo<typeof Talk>
 
-  @column()
+  @column({ serializeAs: null })
   declare roomId: number
 
   @belongsTo(() => Room)
