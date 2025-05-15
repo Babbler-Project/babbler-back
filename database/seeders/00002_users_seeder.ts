@@ -1,7 +1,6 @@
 import { BaseSeeder } from '@adonisjs/lucid/seeders'
 
 import User from '#models/user'
-import hash from '@adonisjs/core/services/hash'
 
 import env from '#start/env'
 
@@ -18,17 +17,17 @@ export default class UserSeeder extends BaseSeeder {
     await User.updateOrCreateMany(uniqueKey, [
       {
         email: adminEmail,
-        password: await hash.make(adminPassword),
+        password: adminPassword,
         roleId: 2,
       },
       {
         email: userEmail,
-        password: await hash.make(userPassword),
+        password: userPassword,
         roleId: 1,
       },
       {
         email: speakerEmail,
-        password: await hash.make(speakerPassword),
+        password: speakerPassword,
         roleId: 3,
       },
     ])

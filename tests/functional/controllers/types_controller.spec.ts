@@ -2,9 +2,13 @@ import app from '@adonisjs/core/services/app'
 import TypeService from '#services/type_service'
 import { test } from '@japa/runner'
 import Type from '#models/type'
+import User from '#models/user'
+import testUtils from '@adonisjs/core/services/test_utils'
+import { createOrganizer } from '#tests/factories/user_factory'
 
 test.group('Type controller', (group) => {
-  group.setup(() => {
+  let organizer: User
+  group.setup(async () => {
     // Crée un mock du service
     const mockTypeService = {
       getAll: async () =>
@@ -25,13 +29,13 @@ test.group('Type controller', (group) => {
         return { id } as Type
       },
     }
-
-    // Remplace le vrai service par le mock dans le container
     app.container.bind(TypeService, () => mockTypeService)
+    organizer = await createOrganizer()
   })
+  group.teardown(() => testUtils.db().truncate())
 
   test('it should return mocked types', async ({ client, assert }) => {
-    const response = await client.get('/api/v1/types')
+    const response = await client.get('/api/v1/types').loginAs(organizer)
 
     response.assertStatus(200)
     const body = response.body()
@@ -43,7 +47,7 @@ test.group('Type controller', (group) => {
     assert.deepInclude(body, { id: 2, label: 'Mocked B' })
   })
   test('it should return one mocked type', async ({ client, assert }) => {
-    const response = await client.get('/api/v1/organizer/types/5')
+    const response = await client.get('/api/v1/organizer/types/5').loginAs(organizer)
 
     response.assertStatus(200)
     const body = response.body()
@@ -52,9 +56,12 @@ test.group('Type controller', (group) => {
   })
 
   test('it should create a new type', async ({ client, assert }) => {
-    const response = await client.post('/api/v1/organizer/types').json({
-      label: 'New Mocked Type',
-    })
+    const response = await client
+      .post('/api/v1/organizer/types')
+      .json({
+        label: 'New Mocked Type',
+      })
+      .loginAs(organizer)
 
     response.assertStatus(201)
     const body = response.body()
@@ -63,9 +70,12 @@ test.group('Type controller', (group) => {
   })
 
   test('it should update a type', async ({ client, assert }) => {
-    const response = await client.put('/api/v1/organizer/types/10').json({
-      label: 'Updated Label',
-    })
+    const response = await client
+      .put('/api/v1/organizer/types/10')
+      .json({
+        label: 'Updated Label',
+      })
+      .loginAs(organizer)
 
     response.assertStatus(200)
     const body = response.body()
@@ -74,7 +84,7 @@ test.group('Type controller', (group) => {
   })
 
   test('it should delete a type', async ({ client, assert }) => {
-    const response = await client.delete('/api/v1/organizer/types/20')
+    const response = await client.delete('/api/v1/organizer/types/20').loginAs(organizer)
 
     response.assertStatus(200)
     const body = response.body()
