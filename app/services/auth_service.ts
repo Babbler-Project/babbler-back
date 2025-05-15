@@ -12,16 +12,28 @@ export default class AuthService {
       throw new Error('Invalid credentials')
     }
 
-    return this.jwt.generate(user)
+    const token = await this.jwt.generate(user)
+    await user.load('role')
+
+    return {
+      token,
+      user,
+    }
   }
 
   async register(userData: User) {
     const user = await User.create(userData)
-    return this.jwt.generate(user)
+    const token = await this.jwt.generate(user)
+    await user.load('role')
+
+    return {
+      token,
+      user,
+    }
   }
 
   async me() {
-    const user = this.jwt.getUserOrFail()
+    const user = await this.jwt.getUserOrFail()
     await user.load('role')
     return user
   }
